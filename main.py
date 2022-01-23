@@ -14,6 +14,9 @@ def login():
     converted_pswd = hashlib.md5(pswd.encode()).hexdigest()
     #print(converted_pswd)
     try:
+        """
+        The function compare the encrypted version of pswd from Login DB and entered user pswd to Login User.
+        """
         query = "select phone_no from register where name = '{}';".format(name)
         mycur.execute(query)
         myrecords = mycur.fetchall()
