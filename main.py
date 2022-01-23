@@ -36,8 +36,10 @@ def login():
 def showdetails():  ######Function calling is left
     mycur.execute("select name, email, phone_no, city, state from register ;")
     records = mycur.fetchall()
-    print(tabulate(records, headers=["Username", "Email", "City", "State", "Phone Number"],
+    print(tabulate(records, headers=["Username", "Email", "State", "City", "Phone Number"],
                    tablefmt="grid"))  ##In Tabular format
+
+
 def updating_username():
     u_old = input(" Old Username")
     u_new = input(" New Username")
@@ -306,7 +308,7 @@ def register():
 
     phone_no = str(phone_no)
     #Store data
-    query = "insert into register values('{}','{}','{}','{}','{}','{}') ;".format(name, DOB, Email, city, state, phone_no)
+    query = "insert into register values('{}','{}','{}','{}','{}','{}') ;".format(name, DOB, Email, phone_no, city, state)
     mycur.execute(query)
     mydb.commit()
 
