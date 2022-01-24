@@ -26,6 +26,7 @@ def login():
         print(pswd_from_db)#
         if converted_pswd == pswd_from_db:
             print("{} is successfully loged In.".format(name))
+            update()
         else:
             print("Username or Password Invalid")
     except:
@@ -44,8 +45,7 @@ def main():
         print("1.sign up")
         print("2.log in")
         print("3.show users")
-        print("4.update details")
-        print("5.exit")
+        print("4.exit")
 
         x = int(input(""))
 
@@ -59,9 +59,6 @@ def main():
             showdetails()
 
         elif x==4:
-            update()
-
-        elif x==5:
             exit()
 
 
