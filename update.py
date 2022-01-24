@@ -13,14 +13,12 @@ def update():
         # get all records
         records = cursor.fetchall()
         print("Total number of rows in table: ", cursor.rowcount)
-
-        print("\nPrinting each row")
+        print()
         name=input("enter your name")
         for row in records:
             if row[0]==name:
                 x=row
-                print(row)
-                print(type(row))
+                print("Your current data is: ", row)
                 updatingvalues(x)
 
 
@@ -31,6 +29,7 @@ def update():
         if connection.is_connected():
             connection.close()
             cursor.close()
+            print("No such user Exist. Try different username.")
             print("MySQL connection is closed")
 
 
