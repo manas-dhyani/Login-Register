@@ -3,7 +3,6 @@ from tabulate import tabulate
 import hashlib
 from validations import *
 from update import update
-
 mydb = mysql.connector.connect(host="localhost", user="root", passwd="manas", database="manas")
 
 mycur = mydb.cursor()
@@ -12,21 +11,26 @@ def login():
     name = input("enter name* ")
     pswd = input("enter password ")
     converted_pswd = hashlib.md5(pswd.encode()).hexdigest()
-    #print(converted_pswd)
+    print(converted_pswd)#
     try:
         query = "select phone_no from register where name = '{}';".format(name)
         mycur.execute(query)
         myrecords = mycur.fetchall()
-        #print(myrecords[0][0])
+        print(myrecords[0])#
         phone_no = myrecords[0][0]
-        query = "select password from register, login where login.phone='{}'".format(phone_no)
+        query = "select password, isAdmin from login where login.phone='{}'".format(phone_no)
         mycur.execute(query)
-        pswd_from_db = mycur.fetchall()
-        pswd_from_db = pswd_from_db[0][0]
-        print(pswd_from_db)#
+        result_from_db = mycur.fetchall()
+        pswd_from_db = result_from_db[0][0]
+        isAdmin = result_from_db[0][1]
+        print(pswd_from_db)
+        print(isAdmin)
         if converted_pswd == pswd_from_db:
             print("{} is successfully loged In.".format(name))
-            update()
+            if isAdmin:
+                update(name, True)
+            else:
+                update(name, False)
         else:
             print("Username or Password Invalid")
     except:
@@ -109,13 +113,13 @@ def register():
 
     phone_no = str(phone_no)
     #Store data
-    query = "insert into register values('{}','{}','{}','{}','{}','{}') ;".format(name, DOB, Email, city, state, phone_no)
+    query = "insert into register values('{}','{}','{}','{}','{}','{}') ;".format(name, DOB, Email, phone_no, city, state)
     mycur.execute(query)
     mydb.commit()
 
     converted = hashlib.md5(pswd.encode()).hexdigest()
 
-    query = "insert into login values('{}','{}') ;".format(phone_no, converted)
+    query = "insert into login values('{}','{}', '{}') ;".format(phone_no, converted, 0)
     mycur.execute(query)
     mydb.commit()
 

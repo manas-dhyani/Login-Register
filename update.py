@@ -4,7 +4,7 @@ from validations import *
 mydb = mysql.connector.connect(host="localhost", user="root", passwd="manas", database="manas")
 mycur = mydb.cursor()
 
-def update():
+def update(username, isAdmin):
     try:
         connection=mysql.connector.connect(host="localhost", user="root", passwd="manas", database="manas")
         sql_select_Query = "select * from register"
@@ -12,15 +12,21 @@ def update():
         cursor.execute(sql_select_Query)
         # get all records
         records = cursor.fetchall()
-        print("Total number of rows in table: ", cursor.rowcount)
-        print()
-        name=input("enter your name")
-        for row in records:
-            if row[0]==name:
-                x=row
-                print("Your current data is: ", row)
-                updatingvalues(x)
-
+        if isAdmin:
+            print("Total number of rows in table: ", cursor.rowcount)
+            print()
+            name = input("enter your name")
+            for row in records:
+                if row[0] == name:
+                    x = row
+                    print("Your current data is: ", row)
+                    updatingvalues(x)
+        else:
+            for row in records:
+                if row[0] == username:
+                    x = row
+                    print("Your current data is: ", row)
+                    updatingvalues(x)
 
     except mysql.connector.Error as e:
         print("Error reading data from MySQL table", e)
