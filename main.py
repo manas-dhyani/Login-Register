@@ -27,6 +27,13 @@ def login():
         print(isAdmin)
         if converted_pswd == pswd_from_db:
             print("{} is successfully loged In.".format(name))
+            from datetime import datetime
+            now = datetime.now()
+            formatted_date = now.strftime('%Y-%m-%d %H:%M:%S')
+            val = (formatted_date, phone_no)
+            sql_query = "UPDATE login SET last_login = %s WHERE login.phone=%s"
+            mycur.execute(sql_query, val)
+            mydb.commit()
             if isAdmin:
                 update(name, True)
             else:
@@ -38,9 +45,9 @@ def login():
     #print(converted)
 
 def showdetails():  ######Function calling is left
-    mycur.execute("select name, email, phone_no, city, state, DOB from register ;")
+    mycur.execute("select r.name, r.email, r.phone_no, r.city, r.state, r.DOB, l.last_login from register as r, login as l where r.phone_no=l.phone;")
     records = mycur.fetchall()
-    print(tabulate(records, headers=["Username", "Email", "Phone Number", "City", "State", "DOB"],
+    print(tabulate(records, headers=["Username", "Email", "Phone Number", "City", "State", "DOB", "Last Login"],
                    tablefmt="grid"))  ##In Tabular format
 
 def main():
