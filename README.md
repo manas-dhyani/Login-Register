@@ -67,10 +67,10 @@ The Description of table Register. All user data except password is saved here, 
  
 The Description of table Login. The user pswd is saved using md5 encryption and phone_no when user register/sign_up.
  
-![](Readme%20Images/login%20desc.JPG)    
+![](Readme%20Images/Login.JPG)    
 
 When user try to login, its pswd is encrypted by md5 encryption and compared to encrpted pswd stored in login table. The username is taken to search the phone no for the user and then a join query is used to find the user registered pswd in login table. If on comparison they are same the user is loged in successfully.
   
-![](Readme%20Images/login%20register%20data.JPG)  
+![](Readme%20Images/reglogin.JPG)  
   
   
