@@ -126,7 +126,11 @@ def register():
 
     converted = hashlib.md5(pswd.encode()).hexdigest()
 
-    query = "insert into login values('{}','{}', '{}') ;".format(phone_no, converted, 0)
+    from datetime import datetime
+    now = datetime.now()
+    formatted_date = now.strftime('%Y-%m-%d %H:%M:%S')
+    query = "insert into login values('{}','{}', '{}', '{}') ;".format(phone_no, converted, 0, formatted_date)
+    
     mycur.execute(query)
     mydb.commit()
 
