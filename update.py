@@ -70,7 +70,10 @@ def updating_phone(x):
     val = (new_phone, curr_phone)
 
     sql = "UPDATE register SET phone_no= %s WHERE phone_no= %s"
+    mycur.execute(sql, val)
+    mydb.commit()
 
+    sql = "UPDATE login SET phone_no= %s WHERE phone_no= %s"
     mycur.execute(sql, val)
     mydb.commit()
 
