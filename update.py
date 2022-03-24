@@ -148,7 +148,6 @@ def updatingvalues(x):  #####Function calling is left
         print("4. City")
         print("5. State")
         print("6. Phone Number")
-        print("7. Exit")
         ch = int(input("Enter Your Choice-"))
         if ch == 1:
             updating_username(x)
@@ -162,8 +161,6 @@ def updatingvalues(x):  #####Function calling is left
             updating_state(x)
         elif ch == 6:
             updating_phone(x)
-        elif ch == 7:
-            exit()
         else:
             break
         c = input("Do You Want To Continue? press y else n:")
